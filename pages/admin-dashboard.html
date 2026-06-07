@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet" href="../css/admin.css">
+
+<style>
+/* ================= MODAL SYSTEM ================= */
+.modal-box {
+    background: #fff;
+    width: 650px;
+    max-width: 4;
+    padding: 20px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    grid-auto-flow: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: start;
+}
+
+.modal-box {
+  background: #fff;
+  padding: 20px;
+  width: 380px;
+  border-radius: 10px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.btn-add {
+  margin: 10px 0;
+  padding: 10px 12px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.item {
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>ShopAdmin</h2>
+
+    <a onclick="show('dashboard')">📊 Dashboard</a>
+    <a onclick="show('products')">📦 Products</a>
+    <a onclick="show('inventory')">📊 Inventory</a>
+    <a onclick="show('users')">👤 Users</a>
+    <a onclick="show('orders')">🛒 Orders</a>
+    <a onclick="show('trending')">🔥 Trending</a>
+    <a href="../admin-login.html">🚪 Logout</a>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="page">
+      <h2>Dashboard Overview</h2>
+
+      <div class="cards">
+        <div class="card">Products <span id="pCount">0</span></div>
+        <div class="card">Users <span id="uCount">0</span></div>
+        <div class="card">Orders <span id="oCount">0</span></div>
+        <div class="card">Revenue <span id="rCount">0</span></div>
+      </div>
+      <div id="activityBox" style="margin-top:20px;"></div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div id="products" class="page hidden">
+
+      <h2>Products Management</h2>
+
+      <button onclick="openAddForm()" class="btn-add">
+        + Add New Product
+      </button>
+
+      <div id="productList"></div>
+
+    </div>
+
+    <!-- USERS -->
+    <div id="users" class="page hidden">
+      <h2>Users</h2>
+      <div id="userList"></div>
+    </div>
+
+    <!-- ORDERS -->
+    <div id="orders" class="page hidden">
+      <h2>Orders</h2>
+      <div id="orderList"></div>
+    </div>
+
+    <!-- INVENTORY -->
+<div id="inventory" class="page hidden">
+  <h2>Inventory Management</h2>
+  <div id="inventoryBox"></div>
+</div>
+
+    <!-- TRENDING -->
+    <div id="trending" class="page hidden">
+      <h2>🔥 Trending</h2>
+      <div id="trendingBox"></div>
+    </div>
+<!-- <button onclick="toggleTrending('${p.id}')">
+  🔥 Toggle Trending
+</button> -->
+
+
+  </div>
+</div>
+<!-- ================= loadPRODUCT MODAL ================= -->
+<div id="activityBox" style="margin-top:20px;"></div>
+
+<!-- ================= ADD PRODUCT MODAL ================= -->
+<div id="addModal" class="modal hidden">
+
+  <div class="modal-box">
+
+    <h2>Add Product</h2>
+
+   <div>Name <input id="add_name" placeholder="Name"><br><br></div>
+   <div> Price<input id="add_price" placeholder="Price"><br><br></div>
+    <div>Discount<input id="add_discount" placeholder="Discount"><br><br></div>
+    <div>Stock<input id="add_stock" placeholder="Stock"><br><br></div>
+    <div>Image URL<input id="add_image" placeholder="Image URL"><br><br>
+    <div></div>Description<textarea id="add_desc" placeholder="Description"></textarea><br><br></div>
+
+    <button onclick="saveProduct()">Save</button>
+    <button onclick="closeAddForm()">Cancel</button>
+
+  </div>
+
+</div>
+
+<!-- ================= EDIT PRODUCT MODAL ================= -->
+
+<div id="editModal" class="modal hidden">
+
+  <div class="modal-box">
+
+    <h2>Edit Product</h2>
+     <!-- <button onclick="toggleTrending('${p.id}')">
+      🔥 Trending</button> -->
+
+<!-- <button onclick="toggleTrending('${p.id}')">
+  🔥 Toggle Trending
+</button> -->
+
+  <input id="edit_id" disabled><br><br>
+     <div>Name <input id="edit_name" placeholder="Name"><br><br></div>
+   <div> Price<input id="edit_price" placeholder="Price"><br><br></div>
+    <div>Discount<input id="edit_discount" placeholder="Discount"><br><br></div>
+    <div>Stock<input id="edit_stock" placeholder="Stock"><br><br></div>
+    <div>Image URL<input id="edit_image" placeholder="Image URL"><br><br>
+      
+    <div></div>Description<textarea id="edit_desc" placeholder="Description"></textarea><br><br></div>
+
+    
+    <button onclick="saveUpdate()">Update</button>
+    <button onclick="closeEditModal()">Cancel</button>
+    
+  </div>
+
+</div>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="../js/api.js"></script>
+<script src="../js/admin-ui.js"></script>
+
+</body>
+</html>

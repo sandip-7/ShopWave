@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Login - ShopWave</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+/* ================= ADMIN LOGIN UI ================= */
+body {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  background: #fff;
+  width: 380px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  text-align: center;
+}
+
+.form-container h2 {
+  margin-bottom: 20px;
+  color: #0f172a;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.form-container input:focus {
+  border-color: #ff9900;
+  box-shadow: 0 0 6px rgba(255,153,0,0.4);
+}
+
+.form-container button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background: #ff9900;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form-container button:hover {
+  background: #e68900;
+}
+
+.note {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #666;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="form-container">
+
+  <h2>Admin Portal 🔐</h2>
+
+  <input id="email" type="email" placeholder="Admin Email">
+  <input id="password" type="password" placeholder="Password">
+
+  <button onclick="login()">Login</button>
+
+  <p class="note">Only authorized admin access allowed</p>
+
+</div>
+
+<!-- API -->
+<script src="js/api.js"></script>
+
+<script>
+async function login() {
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  if (!email || !password) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  try {
+    const res = await api("login", {
+      email,
+      password
+    });
+
+    if (res && res.user && res.user.role === "admin") {
+
+      localStorage.setItem("user", JSON.stringify(res.user));
+
+      alert("Admin login successful ✅");
+
+      window.location.href = "pages/admin-dashboard.html";
+
+    } else {
+      alert("Invalid admin credentials ❌");
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("Server error. Try again.");
+  }
+}
+</script>
+
+</body>
+</html>
