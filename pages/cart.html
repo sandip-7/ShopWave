@@ -5,6 +5,17 @@
 <h3 id="total"></h3>
 
 <button onclick="checkout()">Checkout</button>
+<div id="cartList"></div>
 
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+document.getElementById("cartList").innerHTML =
+  cart.map(item => `
+    <div>
+      Product ID: ${item.id} | Qty: ${item.qty}
+    </div>
+  `).join("");
+</script>
 <script src="../js/cart.js"></script>
 <script src="../js/api.js"></script>s

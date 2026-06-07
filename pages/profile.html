@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profile</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<header class="header">
+  <h2>👤 Profile</h2>
+  <a href="admin-products.html">← Back</a>
+</header>
+
+<div style="padding:40px;max-width:400px;margin:auto;">
+  <input id="name" placeholder="Name" style="width:100%;margin-bottom:10px;padding:10px;">
+  <input id="email" placeholder="Email" style="width:100%;margin-bottom:10px;padding:10px;">
+
+  <button onclick="saveProfile()" style="width:100%;padding:10px;background:#ffd814;border:none;">
+    Save Profile
+  </button>
+</div>
+
+<script>
+function saveProfile() {
+  let user = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value
+  };
+
+  localStorage.setItem("user", JSON.stringify(user));
+  alert("Profile updated!");
+}
+</script>
+
+</body>
+</html>

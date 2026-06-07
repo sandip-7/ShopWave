@@ -1,0 +1,11 @@
+<h2>❤️ Your Wishlist</h2>
+<div id="wishlist"></div>
+
+<script>
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+document.getElementById("wishlist").innerHTML =
+  wishlist.map(id => `
+    <div>Product ID: ${id}</div>
+  `).join("");
+</script>
