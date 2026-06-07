@@ -1,87 +1,476 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>ShopWave - Modern E-Commerce</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#F7F4EF;
+  --white:#FFFFFF;
+  --sand:#EDE8E0;
+  --terra:#C1714F;
+  --terra-light:#E8A98A;
+  --terra-pale:#FAF0EA;
+  --brown:#3D2314;
+  --brown-mid:#7A5240;
+  --muted:#8A7060;
+  --green:#3B7A57;
+  --green-light:#D4EDDA;
+  --navy:#1B2A4A;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Plus Jakarta Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--bg);color:var(--brown);line-height:1.7;font-size:16px;}
 
-<link rel="stylesheet" href="css/style.css">
+/* NAV */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(247,244,239,0.95);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--sand);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2.5rem;height:62px;
+}
+.nav-logo{font-family:var(--serif);font-size:1rem;color:var(--terra);font-weight:700;letter-spacing:0.01em;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:0.85rem;font-weight:400;transition:color 0.2s;letter-spacing:0.03em;}
+.nav-links a:hover{color:var(--terra);}
+
+/* HERO */
+.hero{
+  background:linear-gradient(160deg,#1B2A4A 0%,#2E4A7A 60%,#C1714F 100%);
+  color:white;
+  padding:5rem 2rem 4rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 70% 50%, rgba(193,113,79,0.3) 0%, transparent 60%);
+}
+.avatar-ring{
+  width:130px;height:120px;border-radius:50%;
+  background:linear-gradient(135deg,var(--terra),var(--terra-light));
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1.5rem;
+  font-family:var(--serif);font-size:2.8rem;font-weight:700;
+  color:white;
+  border:4px solid rgba(255,255,255,0.3);
+  position:relative;z-index:1;
+}
+.hero h1{
+  font-family:var(--serif);
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:700;
+  margin-bottom:0.6rem;
+  position:relative;z-index:1;
+}
+  .hero h2{
+  font-family:var(--serif);
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:700;
+  margin-bottom:0.6rem;
+  position:relative;z-index:1;
+}
+.hero-role{
+  font-size:1rem;color:rgba(255,255,255,0.8);
+  font-weight:300;letter-spacing:0.05em;
+  margin-bottom:2rem;position:relative;z-index:1;
+}
+.hero-chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;margin-bottom:2.5rem;}
+.chip{
+  background:rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.3);
+  color:white;font-size:0.78rem;
+  padding:6px 14px;border-radius:100px;font-weight:400;
+}
+.hero-stats{
+  display:flex;gap:3rem;justify-content:center;
+  position:relative;z-index:1;
+}
+.hero-stat-val{font-family:var(--serif);font-size:2rem;font-weight:700;color:var(--terra-light);}
+.hero-stat-lbl{font-size:0.75rem;color:rgba(255,255,255,0.6);letter-spacing:0.05em;text-transform:uppercase;}
+
+/* SECTION BASE */
+section{max-width:1060px;margin:0 auto;padding:5rem 2rem;}
+.sec-label{font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--terra);font-weight:500;margin-bottom:0.6rem;}
+.sec-title{font-family:var(--serif);font-size:clamp(1.7rem,3vw,2.3rem);font-weight:700;margin-bottom:0.75rem;line-height:1.2;}
+.sec-sub{color:var(--muted);font-size:0.95rem;font-weight:300;margin-bottom:3rem;max-width:540px;}
+.divider{border:none;border-top:1px solid var(--sand);margin:0;}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:4rem;align-items:start;}
+.about-bio{color:var(--muted);font-weight:300;font-size:0.97rem;line-height:1.85;margin-bottom:1.5rem;}
+.skills-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:1.5rem;}
+.skill-pill{
+  background:var(--sand);color:var(--brown-mid);
+  font-size:0.78rem;padding:6px 14px;border-radius:100px;font-weight:500;
+}
+.about-cards{display:flex;flex-direction:column;gap:1rem;}
+.about-card{
+  background:var(--white);border:1px solid var(--sand);
+  border-radius:16px;padding:1.25rem 1.5rem;
+  display:flex;gap:1rem;align-items:flex-start;
+}
+.about-card-icon{
+  width:42px;height:42px;border-radius:10px;
+  background:var(--terra-pale);color:var(--terra);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+}
+.about-card-title{font-weight:500;font-size:0.9rem;margin-bottom:2px;}
+.about-card-desc{font-size:0.8rem;color:var(--muted);}
+
+/* PORTFOLIO */
+.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.5rem;}
+.port-card{
+  background:var(--white);border:1px solid var(--sand);
+  border-radius:20px;overflow:hidden;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.port-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(61,35,20,0.1);}
+.port-thumb{
+  height:110px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;
+}
+.pt1{background:linear-gradient(135deg,#FAF0EA,#E8C4B0);}
+.pt2{background:linear-gradient(135deg,#E8F0FF,#B8CCEE);}
+.pt3{background:linear-gradient(135deg,#D4EDDA,#A8D4B2);}
+.pt4{background:linear-gradient(135deg,#F0EAF8,#D0B8E8);}
+.port-body{padding:1.25rem 1.5rem 1.5rem;}
+.port-tag{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--terra);font-weight:500;margin-bottom:0.4rem;}
+.port-title{font-family:var(--serif);font-size:1rem;font-weight:700;margin-bottom:0.4rem;}
+.port-desc{font-size:0.82rem;color:var(--muted);font-weight:300;line-height:1.65;}
+
+/* PROJECTS */
+.projects-list{display:flex;flex-direction:column;gap:1rem;}
+.project-item{
+  background:var(--white);border:1px solid var(--sand);
+  border-radius:16px;padding:1.5rem;
+  display:flex;gap:1.25rem;align-items:flex-start;
+  transition:border-color 0.2s;
+}
+.project-item:hover{border-color:var(--terra-light);}
+.proj-num{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--terra-pale);color:var(--terra);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:0.9rem;font-weight:700;flex-shrink:0;
+}
+.proj-title{font-weight:500;font-size:0.95rem;margin-bottom:3px;}
+.proj-desc{font-size:0.83rem;color:var(--muted);font-weight:300;}
+.proj-sub{font-size:0.78rem;color:var(--muted);margin-top:0.5rem;}
+.proj-sub span{
+  display:inline-block;background:var(--sand);color:var(--brown-mid);
+  padding:2px 10px;border-radius:100px;margin:2px 3px 2px 0;font-size:0.72rem;
+}
+
+/* CONTACT */
+.contact-wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:4rem;align-items:start;}
+.contact-info-title{font-family:var(--serif);font-size:1.6rem;font-weight:700;margin-bottom:0.75rem;}
+.contact-info p{color:var(--muted);font-weight:300;font-size:0.93rem;margin-bottom:1.75rem;}
+.contact-links{display:flex;flex-direction:column;gap:0.85rem;}
+.contact-row{display:flex;align-items:center;gap:0.75rem;font-size:0.88rem;color:var(--brown);}
+.contact-icon{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--sand);display:flex;align-items:center;justify-content:center;
+  font-size:0.95rem;flex-shrink:0;
+}
+.contact-form{display:flex;flex-direction:column;gap:1rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-field{display:flex;flex-direction:column;gap:5px;}
+.form-field label{font-size:0.78rem;font-weight:500;color:var(--muted);}
+.form-field input,.form-field textarea,.form-field select{
+  background:var(--white);border:1px solid var(--sand);border-radius:12px;
+  padding:11px 14px;font-family:var(--sans);font-size:0.88rem;color:var(--brown);
+  outline:none;transition:border-color 0.2s;resize:none;
+}
+.form-field input:focus,.form-field textarea:focus{border-color:var(--terra-light);}
+.form-field textarea{min-height:100px;}
+.form-submit{
+  background:var(--terra);color:white;border:none;
+  padding:13px;border-radius:12px;
+  font-family:var(--sans);font-size:0.92rem;font-weight:500;
+  cursor:pointer;transition:background 0.2s;
+}
+.form-submit:hover{background:#A05C3A;}
+
+/* FOOTER */
+footer{
+  background:var(--navy);color:rgba(255,255,255,0.6);
+  text-align:center;padding:2rem;font-size:0.82rem;
+}
+footer strong{color:var(--terra-light);}
+
+@media(max-width:768px){
+  .about-grid,.contact-wrap{grid-template-columns:1fr;gap:2rem;}
+  .form-row{grid-template-columns:1fr;}
+  .hero-stats{gap:1.5rem;}
+}
+</style>
 </head>
-
 <body>
 
-<!-- ================= TOP NAV ================= -->
-<header class="topbar">
-
-  <div class="logo">ShopWave</div>
-
-  <div class="search-box">
-    <input type="text" placeholder="Search products...">
-    <button>🔍</button>
-  </div>
-
-  <div class="nav-links">
-    <a href="signup.html">Signup</a>
-    <a href="user-login.html">Login</a>
-    <a href="admin-login.html">Admin</a>
-  </div>
-
-</header>
-
-<!-- ================= CATEGORY BAR ================= -->
-<nav class="categories">
-  <span>Home</span>
-  <span>Electronics</span>
-  <span>Fashion</span>
-  <span>Beauty</span>
-  <span>Sports</span>
-  <span>Books</span>
-  <span>Groceries</span>
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Bishwanath Sharma Poudel</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="index1.html">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </nav>
 
-<!-- ================= HERO ================= -->
-<section class="hero">
-  <h1>Big Deals Today 🔥</h1>
-  <p>Up to 70% OFF on selected products</p>
-  <a href="pages/admin-products.html" class="btn">Shop Now</a>
-</section>
+<!-- HERO -->
+<div class="hero">
+  <div class="avatar-ring" id="avatar-ring">
+  <img src="me.jpg" alt="Bishwanath Sharma Poudel" style="width:200%;height:200%;object-fit:cover;border-radius:50%;"/>
+</div>
 
-<!-- ================= PRODUCTS ================= -->
-<section class="section">
-  <h2>Trending Products</h2>
+  <h1>Bishwanath Sharma Poudel</h1>
+  <h2>Sandip Poudel</h2>
+  <p class="hero-role">QA Engineer &nbsp;|&nbsp; DevOps Enthusiast &nbsp;|&nbsp; Kathmandu, Nepal</p>
+  <div class="hero-chips">
+    <span class="chip">Test Automation</span>
+    <span class="chip">CI/CD Pipelines</span>
+    <span class="chip">Performance Testing</span>
+    <span class="chip">Selenium · TestNG</span>
+    <span class="chip">Docker · Jenkins</span>
+    <span class="chip">Kubernetes</span>
+  </div>
+  <div class="hero-stats">
+    <div><div class="hero-stat-val">3+</div><div class="hero-stat-lbl">Years Exp.</div></div>
+    <div><div class="hero-stat-val">6+</div><div class="hero-stat-lbl">Portfolio Items</div></div>
+    <div><div class="hero-stat-val">50%</div><div class="hero-stat-lbl">Perf. Gain</div></div>
+  </div>
+</div>
 
-  <div class="grid">
+<hr class="divider"/>
 
-    <div class="card">
-      <img src="https://via.placeholder.com/300" />
-      <h3>Smart Watch</h3>
-      <p class="price">₹1999</p>
+<!-- ABOUT -->
+<section id="about">
+  <p class="sec-label">About Me</p>
+  <div class="about-grid">
+    <div>
+      <h2 class="sec-title">Dedicated to quality, driven by precision.</h2>
+      <p class="about-bio">I'm a dedicated QA and DevOps Engineer with hands-on experience in ensuring software quality and maintaining CI/CD pipelines. I specialize in test automation, performance testing, and infrastructure deployment, with a strong focus on delivering reliable and scalable systems.</p>
+      <p class="about-bio">With 3+ years of experience in automation, manual testing, and DevOps practices, I bridge the gap between development and operations — making sure every release is fast, stable, and production-ready.</p>
+      <div class="skills-grid">
+        <span class="skill-pill">Selenium</span>
+        <span class="skill-pill">TestNG</span>
+        <span class="skill-pill">Maven</span>
+        <span class="skill-pill">Jenkins</span>
+        <span class="skill-pill">Docker</span>
+        <span class="skill-pill">GitHub Actions</span>
+        <span class="skill-pill">JMeter</span>
+        <span class="skill-pill">Prometheus</span>
+        <span class="skill-pill">Grafana</span>
+        <span class="skill-pill">Kubernetes</span>
+        <span class="skill-pill">Postman</span>
+        <span class="skill-pill">Node.js</span>
+      </div>
     </div>
-
-    <div class="card">
-      <img src="https://via.placeholder.com/300" />
-      <h3>Headphones</h3>
-      <p class="price">₹999</p>
+    <div class="about-cards">
+      <div class="about-card">
+        <div class="about-card-icon">🔬</div>
+        <div>
+          <div class="about-card-title">Test Automation Expert</div>
+          <div class="about-card-desc">Building data-driven frameworks with Selenium, TestNG & Maven integrated into CI pipelines.</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">⚙️</div>
+        <div>
+          <div class="about-card-title">DevOps Practitioner</div>
+          <div class="about-card-desc">Designing Jenkins pipelines with Docker & GitHub Actions for seamless automated deployment.</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">📊</div>
+        <div>
+          <div class="about-card-title">Performance Testing</div>
+          <div class="about-card-desc">Using Apache JMeter to identify bottlenecks and improve API response times by 30%+.</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">📡</div>
+        <div>
+          <div class="about-card-title">Infrastructure Monitoring</div>
+          <div class="about-card-desc">Integrating Prometheus & Grafana for real-time Kubernetes cluster monitoring and alerting.</div>
+        </div>
+      </div>
     </div>
-
-    <div class="card">
-      <img src="https://via.placeholder.com/300" />
-      <h3>Shoes</h3>
-      <p class="price">₹1499</p>
-    </div>
-
-    <div class="card">
-      <img src="https://via.placeholder.com/300" />
-      <h3>Backpack</h3>
-      <p class="price">₹799</p>
-    </div>
-
   </div>
 </section>
 
-<!-- ================= FOOTER ================= -->
+<hr class="divider"/>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <p class="sec-label">Portfolio</p>
+  <h2 class="sec-title">Work I'm proud of</h2>
+  <p class="sec-sub">A selection of QA and DevOps work spanning automation, CI/CD, performance, and monitoring.</p>
+  <div class="portfolio-grid">
+    <div class="port-card">
+      <div class="port-thumb pt1">🤖</div>
+      <div class="port-body">
+        <div class="port-tag">Automation · Selenium</div>
+        <div class="port-title">Test Automation Framework</div>
+        <div class="port-desc">Built a data-driven Selenium framework with TestNG and Maven, integrated with Jenkins for nightly regression runs.</div>
+      </div>
+    </div>
+    <div class="port-card">
+      <div class="port-thumb pt2">🚀</div>
+      <div class="port-body">
+        <div class="port-tag">DevOps · CI/CD</div>
+        <div class="port-title">CI/CD Pipeline Implementation</div>
+        <div class="port-desc">Designed a Jenkins pipeline for automated deployment and testing of a Node.js application using Docker and GitHub Actions.</div>
+      </div>
+    </div>
+    <div class="port-card">
+      <div class="port-thumb pt3">⚡</div>
+      <div class="port-body">
+        <div class="port-tag">Performance · JMeter</div>
+        <div class="port-title">Performance Testing Case Study</div>
+        <div class="port-desc">Used Apache JMeter to simulate concurrent users on an API, identified bottlenecks, and reduced response time by 30%.</div>
+      </div>
+    </div>
+    <div class="port-card">
+      <div class="port-thumb pt4">📡</div>
+      <div class="port-body">
+        <div class="port-tag">Monitoring · Kubernetes</div>
+        <div class="port-title">Live Monitoring Setup</div>
+        <div class="port-desc">Integrated Prometheus and Grafana to monitor Kubernetes clusters with real-time alerting and dashboards.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="sec-label">Projects</p>
+  <h2 class="sec-title">Real-world systems I've worked on</h2>
+  <p class="sec-sub">From HR platforms to government digital services, here are the projects where my QA and DevOps skills made a difference.</p>
+  <div class="projects-list">
+    <div class="project-item">
+      <div class="proj-num">01</div>
+      <div>
+        <div class="proj-title">HRMS Test Suite</div>
+        <div class="proj-desc">Automated test suite for an HR management system, covering end-to-end workflows for employee data, payroll, and attendance.</div>
+        <div class="proj-sub"><span>Automation</span><span>HRMS</span><span>Regression</span></div>
+      </div>
+    </div>
+    <div class="project-item">
+      <div class="proj-num">02</div>
+      <div>
+        <div class="proj-title">Connect Kisan</div>
+        <div class="proj-desc">QA and technical support for a government-based agricultural platform, ensuring reliability for rural farmers and stakeholders.</div>
+        <div class="proj-sub"><span>Government</span><span>Agriculture</span><span>QA Support</span></div>
+      </div>
+    </div>
+    <div class="project-item">
+      <div class="proj-num">03</div>
+      <div>
+        <div class="proj-title">E-Attendance</div>
+        <div class="proj-desc">Implementation and hosting of E-Attendance software for both private companies and government institutions.</div>
+        <div class="proj-sub"><span>Implementation</span><span>Government</span><span>Hosting</span></div>
+      </div>
+    </div>
+      <div class="project-item">
+      <div class="proj-num">04</div>
+      <div>
+        <div class="proj-title">E-Token</div>
+        <div class="proj-desc">Implementation E-Token software for reduce cost and time, streamline operations for Once dispatches .</div>
+        <div class="proj-sub"><span>Implementation</span><span>Hosting</span></div>
+      </div>
+
+
+
+
+    </div>
+    <div class="project-item">
+      <div class="proj-num">05</div>
+      <div>
+        <div class="proj-title">Government Software Suite</div>
+        <div class="proj-desc">QA support and system engineering for a local-government digital platform covering multiple citizen services.</div>
+        <div class="proj-sub">
+          <span>Paperless Documents (कागज रहित दस्तावेज)</span>
+          <span>Legal Case (न्यायिक समिति)</span>
+          <span>Business Registration</span>
+          <span>Social Services</span>
+          <span>Sifarish</span>
+          <span>Agriculture (कृषि)</span>
+          <span>Planning (योजना)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="sec-label">Contact</p>
+  <div class="contact-wrap">
+    <div>
+      <div class="contact-info-title">Let's connect & build something great.</div>
+      <p>If you have any questions or would like to get in touch, feel free to reach out! I'm always open to new opportunities and collaborations.</p>
+      <div class="contact-links">
+        <div class="contact-row">
+          <div class="contact-icon">✉️</div>
+          <span><a href="mailto:bishwanathsharmapoudel@gmail.com">Email Me</a></span>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">📞</div>
+          <span>+977 · Kathmandu, Nepal</span>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">🐙</div>
+          <span><a href="https://github.com/sandip-7" target="_blank">View GitHub Profile</a></span>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">💼</div>
+          <span><a href="https://www.linkedin.com/in/bishwanath-sharma-poudel-92ab80177/" target="_blank">View LinkedIn Profile</span></a>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">📍</div>
+          <span>Kathmandu, Nepal · Postal Code: 44600</span>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-row">
+        <div class="form-field">
+          <label>Name</label>
+          <input type="text" placeholder="Your name"/>
+        </div>
+        <div class="form-field">
+          <label>Email</label>
+          <input type="email" placeholder="your@email.com"/>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Subject</label>
+        <input type="text" placeholder="What's this about?"/>
+      </div>
+      <div class="form-field">
+        <label>Message</label>
+        <textarea placeholder="Your message here..."></textarea>
+      </div>
+      <button class="form-submit">Send Message →</button>
+    </div>
+  </div>
+</section>
+
 <footer>
-  <p>© 2026 ShopWave. All rights reserved.</p>
+  <p>Crafted with care &nbsp;·&nbsp; <strong>Bishwanath Sharma Poudel</strong> &nbsp;·&nbsp; QA Engineer & DevOps Enthusiast &nbsp;·&nbsp; Kathmandu, Nepal</p>
 </footer>
 
 </body>
